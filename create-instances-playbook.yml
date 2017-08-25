@@ -14,4 +14,8 @@
   roles:
     - common
     - infra
+#    - preq
+
+- hosts: nodes
+  roles:
     - preq
