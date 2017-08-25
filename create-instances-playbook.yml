@@ -2,13 +2,13 @@
 - hosts: localhost
   connection: local
   vars:
-    ssh_key: nginx
+    ssh_key: openshift-cluster
     num_nodes: 2
-    security_group_name: nginx
-    template: Linux Ubuntu 16.04 LTS 64-bit
+    security_group_name: openshift-cluster
+    template: Linux CentOS 7.3 64-bit 50G Disk (2017-04-12-c2a36a)
     template_filter: featured
-    instance_type: Tiny
-    root_disk_size: 10
+    instance_type: Medium
+    root_disk_size: 50
     zone: ch-gva-2
 
   roles:
