@@ -1,0 +1,13 @@
+  - name: Add master as host
+    local_action:
+      module: add_host
+      name: "{{ os_master.default_ip  }}" 
+      groups: nodes, master
+
+  - name: Add nodes as hosts 
+    local_action:
+      module: add_host
+      name: "{{ item.default_ip }}" 
+      groups: nodes
+    with_items: {{ os_nodes }}
+
