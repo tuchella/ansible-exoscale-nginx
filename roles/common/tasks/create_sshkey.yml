@@ -3,12 +3,15 @@
       module: cs_sshkeypair
       name: "{{ ssh_key }}"
     register: key
-    tags: sshkey
+    tags: sshkey 
 
   - debug: msg='private key is {{ key.private_key }}'
     when: key.changed
     tags: sshkey
- 
+
+  - name: Create .ssh dir
+    file: path="~/.ssh/" state=directory
+
   - local_action: copy content="{{ key.private_key }}" dest="~/.ssh/id_rsa_{{ ssh_key }}"
     when: key.changed
     tags: sshkey
