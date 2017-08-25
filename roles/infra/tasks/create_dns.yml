@@ -1,0 +1,15 @@
+  - name: Create DNS entry for master
+    local_action:
+      module: exo_dns_record
+      name: "{{ os_master.display_name }}"
+      domain: "os.ai"
+      content: "{{ os_master.default_ip  }}" 
+
+  - name: Create DNS entry for nodes
+    local_action:
+      module: exo_dns_record
+      name: "{{ item.display_name }}"
+      domain: "os.ai"
+      content: "{{ item.default_ip  }}"
+    with_items: '{{ os_nodes.results }}'
+
