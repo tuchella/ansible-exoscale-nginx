@@ -1,11 +1,23 @@
-  - name: Create instances
+  - name: Create master 
     local_action:
       module: cs_instance
-      display_name: "nginx-{{ item }}"
+      display_name: "os-master"
+      template: "{{ template }}"
+      service_offering: "{{ instance_type }}"
+      ssh_key: "{{ ssh_key }}"
+      security_groups: [ '{{ security_group_name }}' ]
+      zone: "{{ zone }}"
+    register: os_master
+
+  - name: Create nodes 
+    local_action:
+      module: cs_instance
+      display_name: "os-node-{{ item }}"
       template: "{{ template }}"
       service_offering: "{{ instance_type }}"
       ssh_key: "{{ ssh_key }}"
       security_groups: [ '{{ security_group_name }}' ]
       zone: "{{ zone }}"
     with_sequence: count={{ num_nodes }}
-    register: nginx_nodes
+    register: os_nodes
+

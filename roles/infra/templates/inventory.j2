@@ -1,10 +1,32 @@
-[default]
+# Create an OSEv3 group that contains the masters and nodes groups
+[OSEv3:children]
+masters
+nodes
 
-[nginx_nodes]
-{% for item in nginx_nodes.results %}
-{{ item.default_ip }}
-{% endfor %}
-
-[nginx_nodes:vars]
+# Set variables common for all OSEv3 hosts
+[OSEv3:vars]
+# SSH user, this user should allow ssh based auth without requiring a password
+ansible_ssh_user=root
 ansible_ssh_private_key_file=~/.ssh/id_rsa_{{ ssh_key }}
-ansible_python_interpreter=/usr/bin/python3
+
+
+# If ansible_ssh_user is not root, ansible_become must be set to true
+#ansible_become=true
+
+openshift_deployment_type=origin
+
+
+# host group for masters
+[masters]
+{{ os_master.default_ip }} openshift_hostname={{ os_master.default_ip }} openshift_public_hostname={{ os_master.default_ip }}
+
+# host group for etcd
+[etcd]
+{{ os_master.default_ip }}
+
+# host group for nodes, includes region info
+[nodes]
+{{ os_master.default_ip }} openshift_hostname={{ os_master.default_ip }} openshift_public_hostname={{ os_master.default_ip }}
+{% for item in os_nodes.results %}
+{{ item.default_ip }} openshift_hostname={{ item.default_ip }} openshift_public_hostname={{ item.default_ip }}
+{% endfor %}
