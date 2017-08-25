@@ -1,1 +1,6 @@
   - yum: name=NetworkManager state=latest
+  
+  - systemd:
+      name: NetworkManager
+      state: started
+      enabled: yes
