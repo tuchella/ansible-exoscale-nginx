@@ -1,0 +1,2 @@
+  - hosts: nodes
+    yum: name=NetworkManager state=latest
