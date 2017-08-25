@@ -10,6 +10,7 @@
     instance_type: Medium
     root_disk_size: 50
     zone: ch-gva-2
+    dns_domain: os.ai
 
   roles:
     - common

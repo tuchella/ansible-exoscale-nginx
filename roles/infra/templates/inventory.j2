@@ -18,15 +18,15 @@ openshift_deployment_type=origin
 
 # host group for masters
 [masters]
-{{ os_master.display_name }} openshift_hostname={{ os_master.display_name }} openshift_public_hostname={{ os_master.display_name }}
+{{ os_master.display_name }}.{{ dns_domain }} openshift_hostname={{ os_master.display_name }}.{{ dns_domain }} openshift_public_hostname={{ os_master.display_name }}.{{ dns_domain }}
 
 # host group for etcd
 [etcd]
-{{ os_master.display_name }}
+{{ os_master.display_name }}.{{ dns_domain }}
 
 # host group for nodes, includes region info
 [nodes]
-{{ os_master.display_name }} openshift_hostname={{ os_master.display_name }} openshift_public_hostname={{ os_master.display_name }}
+{{ os_master.display_name }}.{{ dns_domain }} openshift_hostname={{ os_master.display_name }}.{{ dns_domain }} openshift_public_hostname={{ os_master.display_name }}.{{ dns_domain }}
 {% for item in os_nodes.results %}
-{{ item.display_name }} openshift_hostname={{ item.display_name }} openshift_public_hostname={{ item.display_name }}
+{{ item.display_name }}.{{ dns_domain }} openshift_hostname={{ item.display_name }} openshift_public_hostname={{ item.display_name }}.{{ dns_domain }}
 {% endfor %}
