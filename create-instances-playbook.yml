@@ -18,5 +18,11 @@
 #    - preq
 
 - hosts: nodes
+  vars:
+    resolv_nameservers:
+      - 50.31.243.53
+      - 162.159.24.4
+  
   roles:
     - preq
+    - ahuffman.resolv
